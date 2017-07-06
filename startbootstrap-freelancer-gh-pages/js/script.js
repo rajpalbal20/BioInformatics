@@ -40,13 +40,14 @@ function letter_to_number(input_letter)
     // finally combine our output list into one string of HTML and put it on the page
     quizContainer.innerHTML = output.join("");
   }
-
+  var l=0;
+  var x=0;
   function showResults() {
     // gather answer containers from our quiz
     const answerContainers = quizContainer.querySelectorAll(".answers");
 
     // keep track of user's answers
-    let numCorrect = 0;
+    var numCorrect = 0;
 
     // for each question...
     myQuestions.forEach((currentQuestion, questionNumber) => {
@@ -62,22 +63,29 @@ function letter_to_number(input_letter)
 
         // color the answers green
         answerContainers[questionNumber].style.color = "lightgreen";
+
+
       } else {
         // if answer is wrong or blank
         // color the answers red
         answerContainers[questionNumber].style.color = "red";
 
 
-        correct_answer = currentQuestion.correctAnswer;
-        answer_index = letter_to_number(correct_answer);
-        this_container = answerContainers[questionNumber];
-        answer_html = this_container.children[answer_index];
-        answer_html.style.color = "blue";
+
       }
+      correct_answer = currentQuestion.correctAnswer;
+      answer_index = letter_to_number(correct_answer);
+      this_container = answerContainers[questionNumber];
+      answer_html = this_container.children[answer_index];
+      answer_html.style.color = "blue";
     });
 
     // show number of correct answers out of total
-    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+    if (l==0) {
+      x=numCorrect;
+      l+=1;
+    }
+    resultsContainer.innerHTML = `${x} out of ${myQuestions.length}`;
   }
 
   const quizContainer = document.getElementById("quiz");
